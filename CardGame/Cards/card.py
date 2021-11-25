@@ -1,4 +1,5 @@
 class Card():
+    """Class to implement playing cards"""
     ranks = ("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
     suits = {
         "clubs": "\u2663", 
@@ -12,8 +13,11 @@ class Card():
         "hearts": "Red", 
         "spades": "Black"
     }
+    points = (11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10)
 
     def __init__(self, rank: str, suit: str) -> None:
+        rank = rank.upper()
+        suit = suit.lower()
         if not isinstance(rank, str) or not isinstance(suit, str):
             raise TypeError("class constructor arguments must be strings")
         if rank not in Card.ranks and rank != "1":
@@ -39,6 +43,10 @@ class Card():
     def getSuit(self):
         return self._suit.capitalize()
     
+    def getValue(self) -> int:
+        if Card.points is not None:
+            return Card.points[Card.ranks.index(self._rank)]
+    
     def __eq__(self, __o: object) -> bool:
         if not isinstance(__o, Card):
             return False
@@ -48,14 +56,29 @@ class Card():
         if not isinstance(__o, Card):
             return True
         return not self == __o
+    
+    @classmethod
+    def setPoints(cls, points: tuple[int] or None) -> None:
+        if points is None:
+            cls.points = points
+            return
+        
+        error_msg = "'points' must be either a list or tuple of 13 ints or None"
+        if type(points) not in (list, tuple) or len(points) != 13:
+            raise TypeError(error_msg)       
+        # Now check that points contains ints and ONLY ints
+        for value in points:
+            if not isinstance(value, int):
+                raise TypeError(error_msg)
+        cls.points = tuple(points)
 
 
 if __name__ == "__main__":
     card = Card("1", "spades")
     print(card.getRank(), card.getSuit(), card.getColour())
     print(card)
-    card2 = Card("A", "hearts")
+    card2 = Card("a", "heARts")
     print(card2)
     print(card != card2)
     print(card != card)
-    print(card < card2)
+    print(card.getValue())
