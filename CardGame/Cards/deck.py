@@ -1,5 +1,8 @@
+from random import shuffle
+
 from hand import Hand
 from card import Card
+
 
 class Deck(Hand):
     def __init__(self) -> None:
@@ -9,3 +12,22 @@ class Deck(Hand):
         for suit in suits:
             for rank in ranks:
                 self.cards.append(Card(rank, suit))
+
+    def shuffle(self):
+        return shuffle(self.cards)
+
+    def drawCard(self):
+        return self.cards.pop()
+
+
+if __name__ == "__main__":
+    test = Deck()
+    print(test.cards)
+
+    test.shuffle()
+    print(test.cards)
+
+    print(test.drawCard())
+    print(test.cards)
+    print(test.drawCard())
+    print(test.cards)
