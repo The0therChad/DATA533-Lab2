@@ -12,12 +12,22 @@ class Deck(Hand):
         for suit in suits:
             for rank in ranks:
                 self.cards.append(Card(rank, suit))
+        self.size = len(self.cards)
 
-    def shuffle(self):
-        return shuffle(self.cards)
+    def shuffle(self) -> None:
+        shuffle(self.cards)
 
-    def drawCard(self):
+    def drawCard(self) -> Card:
+        self.size -= 1
         return self.cards.pop()
+    
+    def addToBottom(self, card: Card) -> None:
+        self.cards.insert(0, card)
+        self.size += 1
+    
+    # Overwrite parent class's method so card doesn't get added to top of deck
+    def addCard(self, card: Card) -> None:
+        self.addToBottom(card)
 
 
 if __name__ == "__main__":
@@ -27,7 +37,7 @@ if __name__ == "__main__":
     test.shuffle()
     print(test.cards)
 
-    print(test.drawCard())
-    print(test.cards)
-    print(test.drawCard())
-    print(test.cards)
+    # print(test.drawCard())
+    # print(test.cards)
+    # print(test.drawCard())
+    # print(test.cards)
