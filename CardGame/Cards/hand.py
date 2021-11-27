@@ -10,8 +10,8 @@ class Hand:
     def getTotalPoints(self) -> int:
         return sum([card.getValue() for card in self.cards])
 
-    def discard(self):
-        pass
+    def discard(self, card: Card):
+        return self.cards.remove(card)
 
     def addCard(self, card: Card):
         return self.cards.append(card)
@@ -26,4 +26,7 @@ if __name__ == "__main__":
     print(hand.getTotalPoints())
 
     hand.addCard(card3)
+    print(hand.cards)
+
+    hand.discard(card2)
     print(hand.cards)
