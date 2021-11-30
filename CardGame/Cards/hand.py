@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .card import Card
 
 
@@ -61,8 +63,13 @@ class Hand():
                 if card.getRank().upper() == rank.upper() and card.getSuit().lower() == suit.lower():
                     indices.append(i)
         return indices
-
-        
+    
+    def __add__(self, other: Hand) -> Hand:
+        if not isinstance(other, Hand):
+            raise TypeError("Both operands must be 'Hand' type")
+        card_list = list(self.cards)
+        card_list.extend(other.cards)
+        return Hand(card_list)
 
     def __str__(self) -> str:
         string = [str(card) for card in self.cards]

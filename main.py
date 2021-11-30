@@ -2,18 +2,16 @@
 from CardGame.Cards.card import Card
 from CardGame.Cards.deck import Deck
 from CardGame.Cards.hand import Hand
-from CardGame.Blackjack.person import Person
+from CardGame.Blackjack.person import Player, Dealer
+from CardGame.Blackjack.game import Game
 
 def demo():
     print("Demoing the game...")
-    deck = Deck()
-    deck.shuffle()
-    # hand = Hand(deck.drawCards(5))
-    hand = Hand([Card("A", "spades"), Card("A", "hearts")])
-    hand.addCards(deck.drawCards(3))
-    player = Person(hand=hand)
-    print(player.hand)
-    print(player.getHandPoints())
+    # deck = Deck()
+    # deck.shuffle()
+    blackjack = Game(1)
+    print(blackjack.players[0].hand)
+    
 
 
 if __name__ == "__main__":
