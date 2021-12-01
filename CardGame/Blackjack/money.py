@@ -4,12 +4,11 @@ class Money:
         self.win = win
 
     def bet(self):
-        try:
-            amount = int(input("Please place your bet: "))
-        except ValueError:
-            amount = int(
-                input("That is not an integer. Please place your bet as an integer: ")
-            )
+        amount = None
+        amount = input("Please place your bet: ")
+        while not amount.isdigit():
+            amount = input("That is not an integer. Please place your bet as an integer: ")
+        amount = int(amount)
         if amount <= self.value and amount > 0:
             self.value -= amount
         else:

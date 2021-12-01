@@ -59,8 +59,9 @@ class Dealer(Player):
         self.deck = deck
 
     def dealCard(self) -> Card:
-        self.hand = Hand([self.deck.drawCard()])
-        return self.hand
+        # self.hand = Hand([self.deck.drawCard()])
+        # return self.hand
+        return self.deck.drawCard()
 
     def dealHand(self, num_cards: int) -> Hand:
         if not isinstance(num_cards, int):
@@ -69,7 +70,7 @@ class Dealer(Player):
             raise ValueError("'num_cards' must be a positive value")
 
         if num_cards == 1:
-            return self.dealCard()
+            return Hand([self.dealCard()])
         else:
             return Hand(self.deck.drawCards(min(num_cards, self.deck.size)))
 
@@ -77,8 +78,7 @@ class Dealer(Player):
         print("Dealer's hand: ", self.hand)
         if self.hand.getTotalPoints() > 21:
             print("The dealer goes bust!")
-            for card in self.hand.cards:
-                self.hand.discardHand()
+            self.hand.discardHand()
             return False
         elif self.hand.getTotalPoints() == 21:
             return False

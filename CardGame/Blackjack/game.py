@@ -29,7 +29,7 @@ class Game:
         for player in self.players:
             player.hand = self.dealer.dealHand(2)
 
-        self.dealer.hand = self.dealer.dealCard()
+        self.dealer.hand = self.dealer.dealHand(1)
 
     def run(self):
         live_table = True
