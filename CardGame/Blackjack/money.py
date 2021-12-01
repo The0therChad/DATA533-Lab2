@@ -14,4 +14,9 @@ class Money:
             self.value -= amount
         else:
             print("That is not a valid bet, please try again.")
+            self.bet()
         return amount
+
+    def blackjack(self, amount):
+        print(f"That's blackjack!\n You won ${1.5 * amount}!")
+        self.value += 2.5 * amount

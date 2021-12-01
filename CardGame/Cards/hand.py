@@ -3,7 +3,7 @@ from __future__ import annotations
 from .card import Card
 
 
-class Hand():
+class Hand:
     def __init__(self, cards: list[Card] = []) -> None:
         if not isinstance(cards, list) and not isinstance(cards, tuple):
             raise TypeError("'cards' must be list or tuple of Card type objects")
@@ -17,7 +17,7 @@ class Hand():
         self.size -= 1
         index = self.cards.index(card)
         return self.cards.pop(index)
-    
+
     def discardByIndex(self, index: int) -> Card:
         self.size -= 1
         return self.cards.pop(index)
@@ -25,7 +25,7 @@ class Hand():
     def addCard(self, card: Card) -> None:
         self.cards.append(card)
         self.size += 1
-    
+
     def addCards(self, cards: list[Card]) -> None:
         error_msg = "'cards' must be list or tuple of Card objects"
         if type(cards) not in (list, tuple):
@@ -35,7 +35,7 @@ class Hand():
                 raise TypeError(error_msg)
         self.cards.extend(cards)
         self.size += len(cards)
-    
+
     # This function returns a list of indices representing all cards that match
     # the search parameters. Users can search by suit, rank, or both.
     def search(self, suit: str = None, rank: str = None) -> int:
@@ -50,7 +50,7 @@ class Hand():
         # Empty search, so return all indices
         if suit is None and rank is None:
             return list(range(self.size))
-        
+
         indices = []
         for i, card in enumerate(self.cards):
             if rank is not None and suit is None:
@@ -60,10 +60,13 @@ class Hand():
                 if card.getSuit().lower() == suit.lower():
                     indices.append(i)
             elif rank is not None and suit is not None:
-                if card.getRank().upper() == rank.upper() and card.getSuit().lower() == suit.lower():
+                if (
+                    card.getRank().upper() == rank.upper()
+                    and card.getSuit().lower() == suit.lower()
+                ):
                     indices.append(i)
         return indices
-    
+
     def __add__(self, other: Hand) -> Hand:
         if not isinstance(other, Hand):
             raise TypeError("Both operands must be 'Hand' type")

@@ -29,8 +29,8 @@ class Card:
             self._rank = rank
         self._suit = suit
 
-    def __str__(self) -> str:
-        return f"{self._rank}{Card.suits[self._suit]}"
+    # def __str__(self) -> str:
+    #     return f"{self._rank}{Card.suits[self._suit]}"
 
     def __repr__(self) -> str:
         return f"{self._rank}{Card.suits[self._suit]}"

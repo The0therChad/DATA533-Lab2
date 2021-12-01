@@ -27,6 +27,27 @@ class Player:
     def showMoney(self):
         return f"You have ${self.money.value}, and need ${self.money.win} to win."
 
+    def hit_stand(self, dealer, bet):
+        status = str(
+            input(
+                'Please type "hit" to get another card, or "stand" to keep your hand: '
+            )
+        )
+        if status == "hit":
+            self.addToHand(dealer)
+            print("Your hand: ", self.hand)
+            if self.hand.getTotalPoints() == 21:
+                return self.money.blackjack(bet)
+            elif self.hand.getTotalPoints() > 21:
+                return print("That's a bust!")
+            return True
+        elif status == "stand":
+            print(f"You stand on a hand of {self.hand}")
+            return False
+        else:
+            print("That is not a valid response, please try again.")
+            self.hit_stand(dealer, bet)
+
 
 class Dealer(Player):
     def __init__(self, deck: Deck, hand: Hand = None, money: Money = None) -> None:
@@ -34,7 +55,8 @@ class Dealer(Player):
         self.deck = deck
 
     def dealCard(self) -> Card:
-        return self.deck.drawCard()
+        self.hand = Hand([self.deck.drawCard()])
+        return self.hand
 
     def dealHand(self, num_cards: int) -> Hand:
         if not isinstance(num_cards, int):
