@@ -10,6 +10,7 @@ class Game:
         if num_players < 1:
             raise ValueError("'num_players' must be a positive value")
 
+        self.num_players = num_players
         self.deck = Deck()
         self.deck.shuffle()
         self.dealer = Dealer(self.deck)
@@ -27,10 +28,8 @@ class Game:
 
         for player in self.players:
             player.hand = self.dealer.dealHand(2)
-            player.score = 0
 
         self.dealer.hand = self.dealer.dealCard()
-        self.dealer.score = 0
 
     def run(self):
         live_table = True
@@ -69,3 +68,12 @@ class Game:
                 self.players[0].money.payout(bet, 2)
             else:
                 print("The dealer wins that round.")
+
+            if self.players[0].money.value <= 0:
+                print(f"You have ${self.players[0].money.value}\nGame Over")
+                self.players = [Player(money=Money()) for i in range(self.num_players)]
+                live_table = False
+            elif self.players[0].money.value >= self.players[0].money.win:
+                print(f"You have ${self.players[0].money.value}\nYou win!")
+                self.players = [Player(money=Money()) for i in range(self.num_players)]
+                live_table = False
