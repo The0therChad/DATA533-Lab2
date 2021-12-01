@@ -3,18 +3,19 @@ from ..Cards.deck import Deck
 from ..Cards.hand import Hand
 from .money import Money
 
-class Player():
+
+class Player:
     def __init__(self, hand: Hand = None, money: Money = None) -> None:
         self.hand = hand
         self.money = money
-    
+
     def getHandPoints(self) -> int:
         score = self.hand.getTotalPoints()
         ace_count = len(self.hand.search(rank="A"))
         if ace_count > 1:
-            score -= ((ace_count - 1) * 10)
+            score -= (ace_count - 1) * 10
         return score
-    
+
     def addToHand(self, hand: Hand) -> None:
         if not isinstance(hand, Hand):
             raise TypeError("'hand' must be type Hand")
@@ -23,11 +24,15 @@ class Player():
         else:
             self.hand += hand
 
+    def showMoney(self):
+        return f"You have ${self.money.value}, and need ${self.money.win} to win."
+
+
 class Dealer(Player):
     def __init__(self, deck: Deck, hand: Hand = None, money: Money = None) -> None:
         super().__init__(hand=hand, money=money)
         self.deck = deck
-    
+
     def dealCard(self) -> Card:
         return self.deck.drawCard()
 
@@ -36,7 +41,7 @@ class Dealer(Player):
             raise TypeError("'num_cards' must be an integer")
         if num_cards < 1:
             raise ValueError("'num_cards' must be a positive value")
-        
+
         if num_cards == 1:
             return self.dealCard()
         else:
