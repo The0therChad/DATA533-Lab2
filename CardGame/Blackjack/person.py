@@ -27,26 +27,30 @@ class Player:
     def showMoney(self):
         return f"You have ${self.money.value}, and need ${self.money.win} to win."
 
-    def hit_stand(self, dealer, bet):
+    def hit_stand(self, dealer):
         status = str(
             input(
                 'Please type "hit" to get another card, or "stand" to keep your hand: '
             )
         )
         if status == "hit":
-            self.addToHand(dealer)
+            self.hand.addCard(dealer)
             print("Your hand: ", self.hand)
-            if self.hand.getTotalPoints() == 21:
-                return self.money.blackjack(bet)
-            elif self.hand.getTotalPoints() > 21:
-                return print("That's a bust!")
+            if self.hand.getTotalPoints() > 21:
+                print("You go bust!")
+                for card in self.hand.cards:
+                    self.hand.discardHand()
+                return False
+            elif self.hand.getTotalPoints() == 21:
+                print("That's blackjack!")
+                return False
             return True
         elif status == "stand":
             print(f"You stand on a hand of {self.hand}")
             return False
         else:
             print("That is not a valid response, please try again.")
-            self.hit_stand(dealer, bet)
+            self.hit_stand(dealer)
 
 
 class Dealer(Player):
@@ -68,3 +72,20 @@ class Dealer(Player):
             return self.dealCard()
         else:
             return Hand(self.deck.drawCards(min(num_cards, self.deck.size)))
+
+    def hit_stand(self, dealer):
+        print("Dealer's hand: ", self.hand)
+        if self.hand.getTotalPoints() > 21:
+            print("The dealer goes bust!")
+            for card in self.hand.cards:
+                self.hand.discardHand()
+            return False
+        elif self.hand.getTotalPoints() == 21:
+            return False
+        elif self.hand.getTotalPoints() >= 17:
+            print(f"The dealer stands on a hand of {self.hand}")
+            return False
+        else:
+            input("Please press enter to continue.")
+            self.hand.addCard(dealer)
+            return True

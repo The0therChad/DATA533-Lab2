@@ -22,6 +22,9 @@ class Hand:
         self.size -= 1
         return self.cards.pop(index)
 
+    def discardHand(self):
+        self.cards = []
+
     def addCard(self, card: Card) -> None:
         self.cards.append(card)
         self.size += 1

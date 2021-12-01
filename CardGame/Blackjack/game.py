@@ -20,15 +20,17 @@ class Game:
 
         self.dealer.hand = self.dealer.dealCard()
 
-    def newRound(self, num_players: int = 1):
+    def newRound(self):
         self.deck = Deck()
         self.deck.shuffle()
         self.dealer = Dealer(self.deck)
 
         for player in self.players:
             player.hand = self.dealer.dealHand(2)
+            player.score = 0
 
         self.dealer.hand = self.dealer.dealCard()
+        self.dealer.score = 0
 
     def run(self):
         live_table = True
@@ -38,10 +40,32 @@ class Game:
             bet = self.players[0].money.bet()
             print("Dealer's hand: ", self.dealer.hand)
             print("Your hand: ", self.players[0].hand)
-            self.dealer.addToHand(self.dealer.dealCard())
-            if self.players[0].hand.getTotalPoints() == 21:
+            self.dealer.hand.addCard(self.dealer.deck.drawCard())
+            while self.players[0].hit_stand(self.dealer.deck.drawCard()) == True:
+                pass
+            if (
+                self.players[0].hand.getTotalPoints() > 0
+                and self.players[0].hand.getTotalPoints() != 21
+            ):
+                while self.dealer.hit_stand(self.dealer.deck.drawCard()) == True:
+                    pass
+            if (
+                self.players[0].hand.getTotalPoints()
+                == self.dealer.hand.getTotalPoints()
+            ):
+                print("Dealer's hand: ", self.dealer.hand)
+                print("Your hand: ", self.players[0].hand)
+                print("That's a tie.")
+                self.players[0].money.payout(bet, 1)
+            elif self.players[0].hand.getTotalPoints() == 21:
                 self.players[0].money.blackjack(bet)
-                continue
-            hit = True
-            while hit == True:
-                hit = self.players[0].hit_stand(self.dealer.dealCard(), bet)
+            elif (
+                self.players[0].hand.getTotalPoints()
+                > self.dealer.hand.getTotalPoints()
+            ):
+                print("Dealer's hand: ", self.dealer.hand)
+                print("Your hand: ", self.players[0].hand)
+                print(f"You won ${bet}!")
+                self.players[0].money.payout(bet, 2)
+            else:
+                print("The dealer wins that round.")
