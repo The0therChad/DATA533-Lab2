@@ -28,6 +28,8 @@ class Player:
         return f"You have ${self.money.value}, and need ${self.money.win} to win."
 
     def hit_stand(self, dealer):
+        if self.hand.getTotalPoints() == 21:
+            return False
         status = str(
             input(
                 'Please type "hit" to get another card, or "stand" to keep your hand: '
