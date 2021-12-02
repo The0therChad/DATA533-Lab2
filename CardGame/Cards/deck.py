@@ -1,7 +1,7 @@
 from random import shuffle
 
-from hand import Hand
-from card import Card
+from .hand import Hand
+from .card import Card
 
 
 class Deck(Hand):
@@ -21,23 +21,22 @@ class Deck(Hand):
         self.size -= 1
         return self.cards.pop()
     
+    def drawCards(self, num: int = 1) -> list[Card]:
+        if not isinstance(num, int):
+            raise TypeError("'num' must be an integer")
+        if num < 1:
+            raise ValueError("'num' must be a positive integer")
+        
+        return [self.drawCard() for i in range(min(num, self.size))]
+    
     def addToBottom(self, card: Card) -> None:
+        if not isinstance(card, Card):
+            raise TypeError("'card' must be object of type Card")
         self.cards.insert(0, card)
         self.size += 1
     
     # Overwrite parent class's method so card doesn't get added to top of deck
     def addCard(self, card: Card) -> None:
+        if not isinstance(card, Card):
+            raise TypeError("'card' must be object of type Card")
         self.addToBottom(card)
-
-
-if __name__ == "__main__":
-    test = Deck()
-    print(test.cards)
-
-    test.shuffle()
-    print(test.cards)
-
-    # print(test.drawCard())
-    # print(test.cards)
-    # print(test.drawCard())
-    # print(test.cards)

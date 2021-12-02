@@ -41,7 +41,7 @@ class Card:
     def getRank(self) -> str:
         return self._rank
 
-    def getSuit(self):
+    def getSuit(self) -> str:
         return self._suit.capitalize()
 
     def getValue(self) -> int:
@@ -72,14 +72,3 @@ class Card:
             if not isinstance(value, int):
                 raise TypeError(error_msg)
         cls.points = tuple(points)
-
-
-if __name__ == "__main__":
-    card = Card("1", "spades")
-    print(card.getRank(), card.getSuit(), card.getColour())
-    print(card)
-    card2 = Card("a", "heARts")
-    print(card2)
-    print(card != card2)
-    print(card != card)
-    print(card.getValue())
