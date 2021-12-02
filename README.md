@@ -89,7 +89,7 @@ The game module defines the "Game" class, which initializes the starting game st
     - The player is dealt another card if they call for a hit, then prompted again to hit or stand.
     - The player continues until they hit blackjack, go bust and discard their hand, or choose to stand.
     - The player's points are then recorded if they stand.
-  - The dealer's turn then proceeds automatically, hitting if their hand's value is 16 or below, and discarding their hand if they go bust. 
+  - The dealer's turn then proceeds automatically, hitting if their hand's value is 16 or below, and discarding their hand if they go bust.
   - Prompts for the user to press enter after each hit to allow readability during play.
   - The dealer's points are then recorded once their turn is done.
   - The player's points are then compared to the dealer's and the payout is administered accordingly.
