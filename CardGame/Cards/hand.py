@@ -5,8 +5,12 @@ from .card import Card
 
 class Hand:
     def __init__(self, cards: list[Card] = []) -> None:
+        error_msg = "'cards' must be list or tuple of Card type objects"
         if not isinstance(cards, list) and not isinstance(cards, tuple):
-            raise TypeError("'cards' must be list or tuple of Card type objects")
+            raise TypeError(error_msg)
+        for card in cards:
+            if not isinstance(card, Card):
+                raise TypeError(error_msg)
         self.cards = cards
         self.size = len(self.cards)
 
@@ -14,23 +18,31 @@ class Hand:
         return sum([card.getValue() for card in self.cards])
 
     def discardByCard(self, card: Card) -> Card:
+        if not isinstance(card, Card):
+            raise TypeError("'card' must be type Card")
         self.size -= 1
         index = self.cards.index(card)
         return self.cards.pop(index)
 
     def discardByIndex(self, index: int) -> Card:
+        if not isinstance(index, int):
+            raise TypeError("'index' must be type int")
+        if index not in range(len(self.cards)):
+            raise IndexError("'index' out of list bounds")
         self.size -= 1
         return self.cards.pop(index)
 
-    def discardHand(self):
+    def discardHand(self) -> None:
         self.cards = []
 
     def addCard(self, card: Card) -> None:
+        if not isinstance(card, Card):
+            raise TypeError("'card' must be type Card")
         self.cards.append(card)
         self.size += 1
 
     def addCards(self, cards: list[Card]) -> None:
-        error_msg = "'cards' must be list or tuple of Card objects"
+        error_msg = "'cards' must be list or tuple of Card type objects"
         if type(cards) not in (list, tuple):
             raise TypeError(error_msg)
         for card in cards:
@@ -79,5 +91,4 @@ class Hand:
 
     def __str__(self) -> str:
         string = [str(card) for card in self.cards]
-        value_string = "\tTotal Value: %d" % self.getTotalPoints()
-        return str(string) + value_string
+        return str(string)

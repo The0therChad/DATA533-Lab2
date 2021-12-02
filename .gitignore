@@ -1,6 +1,6 @@
 __pycache__/
 CardGame/__pycache__/
 CardGame/Cards/__pycache__/
-CardGame/Blacljack/__pycache__/
+CardGame/Blackjack/__pycache__/
 
 *.pyc

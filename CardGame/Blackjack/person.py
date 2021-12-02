@@ -23,36 +23,38 @@ class Player:
             self.hand = hand
         else:
             self.hand += hand
+    
+    def addCardToHand(self, card: Card) -> None:
+        if not isinstance(card, Card):
+            raise ValueError("'card' must be type Card")
+        if self.hand is None:
+            self.hand = Hand([card])
+        else:
+            self.hand.addCard(card)
 
-    def showMoney(self):
-        return f"You have ${self.money.value}, and need ${self.money.win} to win."
+    def showMoney(self) -> str:
+        return f"You have ${self.money.value}, and need ${Money.win_amount} to win."
+    
+    def discardHand(self) -> None:
+        self.hand.discardHand()
+    
+    def displayHand(self) -> str:
+        return f"{str(self.hand)} \t Points: {self.getHandPoints()}"
 
-    def hit_stand(self, dealer):
+    def hit_stand(self) -> bool:
         if self.hand.getTotalPoints() == 21:
+            print("That's a blackjack!")
             return False
-        status = str(
-            input(
-                'Please type "hit" to get another card, or "stand" to keep your hand: '
-            )
-        )
+        msg = 'Please type "hit" to get another card, or "stand" to keep your hand: '
+        status = input(msg).strip().lower()
+        while status not in ("hit", "stand"):
+            print("That is not a valid response, please try again.")
+            status = input(msg).strip().lower()
         if status == "hit":
-            self.hand.addCard(dealer)
-            print("Your hand: ", self.hand)
-            if self.hand.getTotalPoints() > 21:
-                print("You go bust!")
-                for card in self.hand.cards:
-                    self.hand.discardHand()
-                return False
-            elif self.hand.getTotalPoints() == 21:
-                print("That's blackjack!")
-                return False
             return True
         elif status == "stand":
-            print(f"You stand on a hand of {self.hand}")
+            print(f"You stand on a hand of {self.displayHand()}")
             return False
-        else:
-            print("That is not a valid response, please try again.")
-            self.hit_stand(dealer)
 
 
 class Dealer(Player):
@@ -61,8 +63,6 @@ class Dealer(Player):
         self.deck = deck
 
     def dealCard(self) -> Card:
-        # self.hand = Hand([self.deck.drawCard()])
-        # return self.hand
         return self.deck.drawCard()
 
     def dealHand(self, num_cards: int) -> Hand:
@@ -76,18 +76,17 @@ class Dealer(Player):
         else:
             return Hand(self.deck.drawCards(min(num_cards, self.deck.size)))
 
-    def hit_stand(self, dealer):
-        print("Dealer's hand: ", self.hand)
-        if self.hand.getTotalPoints() > 21:
-            print("The dealer goes bust!")
-            self.hand.discardHand()
+    def hit_stand(self) -> bool:
+        print("Dealer's hand: ", self.displayHand())
+        if self.getHandPoints() > 21:
+            print("The dealer goes bust!\n")
+            self.discardHand()
             return False
-        elif self.hand.getTotalPoints() == 21:
+        elif self.getHandPoints() == 21:
             return False
-        elif self.hand.getTotalPoints() >= 17:
-            print(f"The dealer stands on a hand of {self.hand}")
+        elif self.getHandPoints() >= 17:
+            print(f"The dealer stands on a hand of {self.displayHand()}\n")
             return False
         else:
             input("Please press enter to continue.")
-            self.hand.addCard(dealer)
             return True

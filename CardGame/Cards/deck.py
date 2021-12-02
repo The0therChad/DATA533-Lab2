@@ -30,9 +30,13 @@ class Deck(Hand):
         return [self.drawCard() for i in range(min(num, self.size))]
     
     def addToBottom(self, card: Card) -> None:
+        if not isinstance(card, Card):
+            raise TypeError("'card' must be object of type Card")
         self.cards.insert(0, card)
         self.size += 1
     
     # Overwrite parent class's method so card doesn't get added to top of deck
     def addCard(self, card: Card) -> None:
+        if not isinstance(card, Card):
+            raise TypeError("'card' must be object of type Card")
         self.addToBottom(card)
