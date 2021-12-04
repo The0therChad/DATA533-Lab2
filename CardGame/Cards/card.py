@@ -12,10 +12,10 @@ class Card:
     points = (11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10)
 
     def __init__(self, rank: str, suit: str) -> None:
-        rank = rank.upper()
-        suit = suit.lower()
         if not isinstance(rank, str) or not isinstance(suit, str):
             raise TypeError("class constructor arguments must be strings")
+        rank = rank.upper()
+        suit = suit.lower()
         if rank not in Card.ranks and rank != "1":
             raise ValueError("Improper rank: select 1-10, or J, Q, K, or A")
         if suit not in Card.suits.keys():
