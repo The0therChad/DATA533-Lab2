@@ -11,11 +11,6 @@ class DealerTest(unittest.TestCase):
         super().setUp()
         # Re-initialize the deck at the start of each test (cards are sorted)
         DealerTest.dealer.deck = Deck()
-
-        # Suppress the print statements by redirecting STDOUT to an in-memory
-        # buffer that is never displayed in the terminal
-        suppress_output = io.StringIO()
-        sys.stdout = suppress_output
     
     def test_hit(self) -> None:
         dealer = DealerTest.dealer
@@ -56,10 +51,7 @@ class DealerTest(unittest.TestCase):
 
     
     def tearDown(self) -> None:
-        super().tearDown()
-        # Purge the buffer and restore printing to the terminal
-        sys.stdout.close()
-        sys.stdout = sys.__stdout__
+        return super().tearDown()
     
     @classmethod
     def setUpClass(cls) -> None:

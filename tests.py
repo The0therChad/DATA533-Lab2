@@ -8,5 +8,5 @@ from tests.player_test import PlayerTest
 from tests.money_test import MoneyTest
 
 if __name__ == "__main__":
-    unittest.main(argv=[''], verbosity=2)
+    unittest.main(argv=[''], verbosity=2, buffer=True)
     
