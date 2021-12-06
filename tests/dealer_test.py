@@ -12,6 +12,18 @@ class DealerTest(unittest.TestCase):
         # Re-initialize the deck at the start of each test (cards are sorted)
         DealerTest.dealer.deck = Deck()
     
+    def test_constrctor(self) -> None:
+        with self.assertRaises(TypeError):
+            new_dealer = Dealer(hand=4, deck=Deck())
+        with self.assertRaises(TypeError):
+            new_dealer = Dealer(money="4", deck=Deck())
+        with self.assertRaises(TypeError):
+            new_dealer = Dealer(deck="string")
+        with self.assertRaises(TypeError):
+            new_dealer = Dealer(deck=4)
+        with self.assertRaises(TypeError):
+            new_dealer = Dealer(deck=None)
+    
     def test_hit(self) -> None:
         dealer = DealerTest.dealer
         # Test points > 21 condition
@@ -48,7 +60,16 @@ class DealerTest(unittest.TestCase):
             ])
         )
         self.assertFalse(dealer.hit_stand())
-
+    
+    def test_deal(self) -> None:
+        dealer = DealerTest.dealer
+        self.assertIs(type(dealer.dealCard()), Card)
+        self.assertIs(type(dealer.dealHand(1)), Hand)
+        with self.assertRaises(TypeError):
+            dealer.dealHand("a")
+        with self.assertRaises(ValueError):
+            dealer.dealHand(0)
+        self.assertEqual(dealer.dealHand(4).size, 4)
     
     def tearDown(self) -> None:
         return super().tearDown()
