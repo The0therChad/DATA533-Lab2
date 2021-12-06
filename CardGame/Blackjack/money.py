@@ -3,7 +3,9 @@ class Money:
 
     def __init__(self, buyIn: int = 100) -> None:
         if not isinstance(buyIn, int):
-            raise TypeError("'buyin' must be type int")
+            raise TypeError("'buyIn' must be type int")
+        if buyIn < 1:
+            raise ValueError("'buyIn' must be a positive value")
         self.value = buyIn
 
     def bet(self) -> int:
