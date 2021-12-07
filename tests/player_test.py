@@ -4,16 +4,13 @@ import unittest
 from CardGame.Blackjack.money import Money
 from CardGame.Blackjack.person import Player
 from CardGame.Cards.card import Card
-from CardGame.Cards.deck import Deck
 from CardGame.Cards.hand import Hand
 
 
 class PlayerTest(unittest.TestCase):
     def setUp(self) -> None:
         super().setUp()
-        self.p1 = Player(hand=Hand([]))
-        self.deck = Deck()
-        self.deck.shuffle()
+        self.p1 = Player(hand=Hand([]), money=Money())
 
     def test_addToHand(self) -> None:
         with self.assertRaises(TypeError):
@@ -47,7 +44,6 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(self.p1.getHandPoints(), 20)
 
     def test_showMoney(self) -> None:
-        self.p1.money = Money()
         self.assertIsInstance(self.p1.showMoney(), str)
         self.assertEqual(self.p1.showMoney(), "You have $100, and need $1000 to win.")
         self.p1.money = Money(200)
