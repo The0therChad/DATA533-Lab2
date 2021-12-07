@@ -9,8 +9,8 @@ from CardGame.Cards.hand import Hand
 
 class PlayerTest(unittest.TestCase):
     def setUp(self) -> None:
-        super().setUp()
         self.p1 = Player(hand=Hand([]), money=Money())
+        return super().setUp()
 
     def test_addToHand(self) -> None:
         with self.assertRaises(TypeError):
