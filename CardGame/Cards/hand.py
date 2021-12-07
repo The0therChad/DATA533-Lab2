@@ -34,6 +34,7 @@ class Hand:
 
     def discardHand(self) -> None:
         self.cards = []
+        self.size = 0
 
     def addCard(self, card: Card) -> None:
         if not isinstance(card, Card):
