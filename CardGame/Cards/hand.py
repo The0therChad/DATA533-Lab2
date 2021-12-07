@@ -20,6 +20,8 @@ class Hand:
     def discardByCard(self, card: Card) -> Card:
         if not isinstance(card, Card):
             raise TypeError("'card' must be type Card")
+        if card not in self.cards:
+            raise ValueError("'card' must already be in hand")
         self.size -= 1
         index = self.cards.index(card)
         return self.cards.pop(index)
@@ -34,6 +36,7 @@ class Hand:
 
     def discardHand(self) -> None:
         self.cards = []
+        self.size = 0
 
     def addCard(self, card: Card) -> None:
         if not isinstance(card, Card):
@@ -53,7 +56,7 @@ class Hand:
 
     # This function returns a list of indices representing all cards that match
     # the search parameters. Users can search by suit, rank, or both.
-    def search(self, suit: str = None, rank: str = None) -> int:
+    def search(self, suit: str = None, rank: str = None) -> list:
         NoneType = type(None)
         if type(suit) not in (str, NoneType) or type(rank) not in (str, NoneType):
             raise TypeError("'rank' and 'suit' must be 'str' type or None")
