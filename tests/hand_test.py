@@ -99,3 +99,11 @@ class HandTest(unittest.TestCase):
 
     def tearDown(self) -> None:
         return super().tearDown()
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        return super().setUpClass()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        return super().tearDownClass()
