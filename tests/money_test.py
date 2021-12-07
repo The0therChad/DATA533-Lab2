@@ -61,6 +61,18 @@ class MoneyTest(unittest.TestCase):
         test_input.close()
         sys.stdin = sys.__stdin__
     
+    def test_payout(self) -> None:
+        with self.assertRaises(TypeError):
+            self.money.payout(20.5, 1)
+        with self.assertRaises(TypeError):
+            self.money.payout(50, "2.0")
+        self.money.payout(50, 1.5)
+        self.assertEqual(self.money.value, 275)
+        self.money.payout(25, 1)
+        self.assertEqual(self.money.value, 300)
+        self.money.payout(100, -1.0)
+        self.assertEqual(self.money.value, 200)
+    
     def tearDown(self) -> None:
         return super().tearDown()
     
