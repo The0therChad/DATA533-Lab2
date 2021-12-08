@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-  name='CardGame',
+  name='dealerschoice',
   version='1.0',
   packages=find_packages(exclude=['tests*']),
   license='MIT',
