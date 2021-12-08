@@ -1,0 +1,20 @@
+Name                             Stmts   Miss  Cover
+----------------------------------------------------
+CardGame/Blackjack/__init__.py       0      0   100%
+CardGame/Blackjack/money.py         37      8    78%
+CardGame/Blackjack/person.py        79      1    99%
+CardGame/Cards/__init__.py           0      0   100%
+CardGame/Cards/card.py              51     14    73%
+CardGame/Cards/deck.py              32      0   100%
+CardGame/Cards/hand.py              77      0   100%
+CardGame/__init__.py                 0      0   100%
+tests.py                            17      0   100%
+tests/__init__.py                    0      0   100%
+tests/card_test.py                  44      0   100%
+tests/dealer_test.py                58      0   100%
+tests/deck_test.py                  54      0   100%
+tests/hand_test.py                  89      0   100%
+tests/money_test.py                 64      0   100%
+tests/player_test.py                75      0   100%
+----------------------------------------------------
+TOTAL                              677     23    97%

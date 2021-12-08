@@ -4,3 +4,4 @@ CardGame/Cards/__pycache__/
 CardGame/Blackjack/__pycache__/
 
 *.pyc
+.coverage
