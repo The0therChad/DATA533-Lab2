@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: dealerschoice
+Version: 1.0
+Summary: A python package to generate playing cards and use them to play a game of Blackjack in the terminal.
+Home-page: https://github.com/The0therChad/DATA533-Lab3.git
+Author: Sean-C-Casey & The0therChad
+Author-email: cjwheelz@student.ubc.ca
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
