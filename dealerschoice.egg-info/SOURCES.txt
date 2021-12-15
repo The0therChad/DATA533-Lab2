@@ -1,5 +1,6 @@
 README.md
 pyproject.toml
+setup.cfg
 setup.py
 CardGame/__init__.py
 CardGame/Blackjack/__init__.py
