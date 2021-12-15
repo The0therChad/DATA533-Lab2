@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="dealerschoice",
-    version="1.0.1",
+    version="1.0.2",
     packages=find_packages(exclude=["tests*"]),
     license="MIT",
     description="A python package to generate playing cards and use them to play a game of Blackjack in the terminal.",
