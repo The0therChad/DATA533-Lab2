@@ -1,6 +1,6 @@
-[![Build Status](https://app.travis-ci.com/The0therChad/DATA533-Lab3.svg?branch=main)](https://app.travis-ci.com/The0therChad/DATA533-Lab3)
-
 # **CardGame Package Documentation**
+
+[![Build Status](https://app.travis-ci.com/The0therChad/DATA533-Lab3.svg?branch=main)](https://app.travis-ci.com/The0therChad/DATA533-Lab3)
 
 ## **Cards Subpackage**
 
